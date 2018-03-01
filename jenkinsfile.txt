@@ -1,0 +1,13 @@
+#!groovy
+node ('master'){
+git url
+def Java = tool 'jdk 1.8.0_131'
+def maven = tool 'Apache Maven 3.5.2'
+
+withEnv=(["JAVA_HOME=$java" , 
+            "PATH+MAVEN=$M2:
+			 ${env.JAVA_HOME}/bin"]){
+	   sh " mvn clean install"
+      }
+}	   
+
