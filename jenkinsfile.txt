@@ -1,13 +1,31 @@
-#!groovy
-node ('master'){
-git url
-def Java = tool 'jdk 1.8.0_131'
-def maven = tool 'Apache Maven 3.5.2'
-
-withEnv=(["JAVA_HOME=$java" , 
-            "PATH+MAVEN=$M2:
-			 ${env.JAVA_HOME}/bin"]){
-	   sh " mvn clean install"
-      }
-}	   
-
+pipeline{
+        agent{
+		     node ('master')
+		   }
+           tools {
+		     java 'jdk 1.8.0_131'
+			 maven ' Apache Maven 3.5.2'
+			 }
+	     stages{
+		       stage('Intialize'){
+			                    steps{
+								bat ...
+								echo "PATH = %PATH%"
+								echo "M2_HOME= %M2_HOME%"
+								...
+								}
+							}
+				stage('Build'){
+				              steps{
+							  bat 'mvn clean install'
+							  }
+							post{
+							success{
+							 junit 'NumberGenerator/target/surefire-reports/*.xml'
+							 }
+							}
+						}
+					}
+					
+				}
+							
