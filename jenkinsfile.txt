@@ -1,6 +1,6 @@
 pipeline{
         agent{
-		     node ('master')
+		     node ('slave-1')
 		   }
            tools {
 		     git  'git.exe'
